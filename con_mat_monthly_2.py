@@ -37,28 +37,19 @@ for inc_imerg in list_year:
 
 df_gpm = pd.DataFrame(r_arr)
 
-#================================ Mean of 3 stations =======================================
+#================================ Station Data =======================================
 
 
-stat1_df1 = pd.DataFrame(stat1_4_array_test)
-stat2_df1 = pd.DataFrame(stat2_4_array_test)
-stat3_df1 = pd.DataFrame(stat3_4_array_test)
+stat_df = pd.DataFrame(stat_array)
 
-
-frames_1_mon = [stat1_df1, stat3_df1]
-mon_cat_1 = pd.concat(frames_1_mon, axis = 1, join = 'inner')
-
-frames_2_mon = [mon_cat_1, stat2_df1]
-mon_cat2 = pd.concat(frames_2_mon, axis = 1, join = 'inner')
-
-mon_sum1 = mon_cat2.sum(axis=1)
-mon_mean1 = mon_sum1.div(3.0)
+mon_sum = stat_df.sum(axis=1)
+mon_mean = mon_sum.div(3.0)
 
 
 
 #================================= Plotting =======================================
 
-plt.scatter(r_arr, mon_mean1)
+plt.scatter(r_arr, mon_mean)
 plt.title = 'IMERG vs Bangalore Mean Scatter Plot'
 plt.hist(r_arr)
 plt.title = '2000-2011 Rainfall'
@@ -68,5 +59,5 @@ plt.show()
 
 con_mat = np.zeros((15,15))
 for r_months in range(0,120):
-    con_mat[monthly_rain_classifier(r_arr[r_months]), monthly_rain_classifier(mon_mean1[r_months])] =(con_mat[monthly_rain_classifier(r_arr[r_months]), monthly_rain_classifier(mon_mean1[r_months])]) + 1.0
+    con_mat[monthly_rain_classifier(r_arr[r_months]), monthly_rain_classifier(mon_mean[r_months])] =(con_mat[monthly_rain_classifier(r_arr[r_months]), monthly_rain_classifier(mon_mean[r_months])]) + 1.0
 print(con_mat)
